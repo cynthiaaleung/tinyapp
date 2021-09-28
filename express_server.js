@@ -42,6 +42,18 @@ app.get("/u/:shortURL", (req, res) => {
   res.redirect(`http://${longURL}`);
 });
 
+app.post("/urls/:shortURL/edit", (req, res) => {
+  res.redirect(`/urls/${req.params.shortURL}`);
+});
+
+app.post("/urls/:shortURL/submit", (req, res) => {
+  console.log("submit button");
+  const longURL = req.body.modifiedLongURL;
+  console.log(req.body.modifiedLongURL);
+  urlDatabase[req.params.shortURL] = longURL;
+  res.redirect(`/urls/${req.params.shortURL}`);
+});
+
 app.get("/", (req, res) => {
   res.send("Hello!");
 });
