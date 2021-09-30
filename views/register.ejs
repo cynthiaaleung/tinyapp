@@ -5,22 +5,31 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="styles.css"/>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
   <title>Login</title>
 </head>
 <body>
-  <h1>Register</h1>
-  <p>Already a user? <a href="/login">Go back to login</a></p>
+  <%- include('partials/_header') %>
+  <h1>Create Account</h1>
+  <p>Already a user? <a href="/login">Go back to Login page</a></p>
   <form method="POST" action="/register">
-    <label>Email:</label>
-    <input name="email" type="email"/>
+    <label>Email address:</label>
+    <br />
+    <input name="email" type="email" placeholder="Enter email"/>
     <br />
 
     <label>Password:</label>
-    <input name="password" type="password"/>
+    <br />
+    <input name="password" type="password" placeholder="Password"/>
     <br />
 
-    <button type="submit">Register User</button>
+    <button type="submit" class="btn btn-primary">Register</button>
   </form>
-  
+</body>
+<!-- Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 </html>

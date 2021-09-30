@@ -37,7 +37,9 @@ const findUserByEmail = (email) => {
 };
 
 app.get('/register', (req, res) => {
-  res.render('register');
+  const user = undefined;
+  const templateVars = { user: user };
+  res.render('register', templateVars);
 });
 
 app.post('/register', (req, res) => {
@@ -54,6 +56,7 @@ app.post('/register', (req, res) => {
   if (user) {
     return res.status(400).send(`User with that email already exists`);
   }
+
   users[id] = {
     id: id,
     email: email,
@@ -62,6 +65,31 @@ app.post('/register', (req, res) => {
 
   res.cookie("user_id", id);
   res.redirect("/urls");
+});
+
+app.get('/login', (req, res) => {
+  const user = undefined;
+  const templateVars = { user: user };
+  res.render('login', templateVars);
+});
+
+app.post('/login', (req, res) => {
+  const email = req.body.email;
+  const password = req.body.password;
+  let id = undefined;
+
+  for (let userId of Object.keys(users)) {
+
+    if (users[userId].email === email && users[userId].password === password) {
+      id = userId;
+      res.cookie("user_id", id);
+      res.redirect(`/urls`);
+    }
+  }
+  
+  if (id === undefined) {
+    return res.status(403).send(`ERROR 403`);
+  }
 });
 
 app.get("/urls", (req, res) => {
@@ -109,14 +137,8 @@ app.post("/urls/:shortURL/submit", (req, res) => {
   res.redirect(`/urls/${req.params.shortURL}`);
 });
 
-app.post("/login", (req, res) => {
-  console.log(req.body);
-  res.cookie("username", req.body.username);
-  res.redirect(`/urls`);
-});
-
 app.post("/logout", (req, res) => {
-  res.clearCookie("username");
+  res.clearCookie("user_id");
   res.redirect(`/urls`);
 });
 
