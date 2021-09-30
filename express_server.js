@@ -3,6 +3,7 @@ const cookieParser = require('cookie-parser');
 const app = express();
 const PORT = 8080;
 const bodyParser = require("body-parser");
+const bcrypt = require('bcryptjs');
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
@@ -16,17 +17,21 @@ const urlDatabase = {
   i3BoGr: {
     longURL: "https://www.google.ca",
     userID: "aJ48lW"
+  },
+  wscl99: {
+    longURL: "https://www.google.ca",
+    userID: "c127w7"
   }
 };
 
 const users = {
-  "userRandomID": {
-    id: "userRandomID",
+  "aJ48lW": {
+    id: "aJ48lW",
     email: "user@example.com",
     password: "123"
   },
-  "user2RandomID": {
-    id: "user2RandomID",
+  "c127w7": {
+    id: "c127w7",
     email: "user2@example.com",
     password: "abc"
   }
@@ -81,7 +86,7 @@ app.post('/register', (req, res) => {
   users[id] = {
     id: id,
     email: email,
-    password: password
+    password: bcrypt.hashSync(password, 10)
   };
 
   res.cookie("user_id", id);
@@ -97,26 +102,24 @@ app.get('/login', (req, res) => {
 app.post('/login', (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
-  let id = undefined;
 
-  for (let userId of Object.keys(users)) {
+  for (let userId in users) {
 
-    if (users[userId].email === email && users[userId].password === password) {
-      id = userId;
+    if (users[userId].email === email && bcrypt.compareSync(password, users[userId].password)) {
+      let id = users[userId].id;
       res.cookie("user_id", id);
-      res.redirect(`/urls`);
+      return res.redirect(`/urls`);
     }
   }
-  
-  if (id === undefined) {
-    return res.status(403).send(`ERROR 403`);
-  }
+  return res.status(403).send(`Error 403`);
 });
+
 
 app.get("/urls", (req, res) => {
   const user = users[req.cookies["user_id"]];
   const templateVars = { urls: urlsForUser(user), user: user};
   res.render("urls_index", templateVars);
+  
 });
 
 app.get("/urls/new", (req, res) => {
