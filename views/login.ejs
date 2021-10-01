@@ -9,18 +9,16 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
   <title>Login</title>
 </head>
-<body>
+<body style="text-align: center;">
   <%- include('partials/_header') %>
   <h1>Login</h1>
   <p>First time here? <a href="/register">Go to the Register page</a></p>
   <form method="POST" action="/login">
     <label>Email address:</label>
-    <br>
     <input name="email" type="email" placeholder="Enter email"/>
     <br>
 
     <label>Password:</label>
-    <br>
     <input name="password" type="password" placeholder="Password"/>
     <br>
 
