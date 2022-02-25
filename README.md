@@ -10,7 +10,7 @@ TinyApp is a full stack web application built with Node and Express that allows 
 
 !["Page to edit long URL for the shortened URL"](https://github.com/cynthiaaleung/tinyapp/blob/master/docs/urls-shortURL-edit.png)
 
-## Dependencies
+## Tech Stack & Dependencies
 
 - Node.js
 - Express
